@@ -103,4 +103,73 @@ class Book {
     private double price;
     private String category;
     private boolean available;   // true = on the shelf, false = borrowed
+     // ---------- Constructors ----------
+ 
+    // Default constructor: assigns sensible default values
+    public Book() {
+        this.title = "Unknown Title";
+        this.author = "Unknown Author";
+        this.ISBN = "0000000000";
+        this.price = 0.0;
+        this.category = "General";
+        this.available = true;   // a new book starts as available
+    }
+ 
+    // Parameterized constructor: initializes all book information
+    public Book(String title, String author, String ISBN,
+                double price, String category, boolean available) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+        setPrice(price);          // reuse the setter so validation is applied
+        this.category = category;
+        this.available = available;
+    }
+ 
+    // ---------- Getters ----------
+    public String getTitle()    { return title; }
+    public String getAuthor()   { return author; }
+    public String getISBN()     { return ISBN; }
+    public double getPrice()    { return price; }
+    public String getCategory() { return category; }
+    public boolean isAvailable(){ return available; }
+ 
+    // ---------- Setters ----------
+    public void setTitle(String title)       { this.title = title; }
+    public void setAuthor(String author)     { this.author = author; }
+    public void setISBN(String ISBN)         { this.ISBN = ISBN; }
+    public void setCategory(String category) { this.category = category; }
+    public void setAvailable(boolean available) { this.available = available; }
+ 
+    // Price setter with validation: price must not be negative
+    public void setPrice(double price) {
+        if (price >= 0) {
+            this.price = price;
+        } else {
+            // Invalid value: reject it and keep the previous price
+            System.out.println("Invalid price (" + price + ") for \"" + title
+                    + "\". Price cannot be negative. Price not changed.");
+        }
+    }
+// ---------- Instance methods ----------
+ 
+    // Displays all details of the book in a clear format
+    public void displayDetails() {
+        System.out.println("ISBN     : " + ISBN);
+        System.out.println("Title    : " + title);
+        System.out.println("Author   : " + author);
+        System.out.println("Category : " + category);
+        System.out.printf("Price    : $%.2f%n", price);
+        System.out.println("Status   : " + (available ? "Available" : "Not Available (Borrowed)"));
+    }
+ 
+    // Borrows the book only if it is currently available
+    public void borrowBook() {
+        if (available) {
+            available = false;
+            System.out.println("\"" + title + "\" has been borrowed successfully.");
+        } else {
+            System.out.println("Sorry, \"" + title + "\" cannot be borrowed. It is already borrowed.");
+        }
+    }
  
