@@ -172,4 +172,24 @@ class Book {
             System.out.println("Sorry, \"" + title + "\" cannot be borrowed. It is already borrowed.");
         }
     }
+     // Returns the book only if it is currently borrowed
+    public void returnBook() {
+        if (!available) {
+            available = true;
+            System.out.println("\"" + title + "\" has been returned successfully.");
+        } else {
+            System.out.println("\"" + title + "\" cannot be returned. It was not borrowed.");
+        }
+    }
  
+    // Classifies the book by price: Low (<20), Medium (20-50), High (>50)
+    public String getPriceCategory() {
+        if (price < 20) {
+            return "Low";
+        } else if (price <= 50) {
+            return "Medium";
+        } else {
+            return "High";
+        }
+    }
+}
